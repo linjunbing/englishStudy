@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf模板</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>编号</td>
+            <td>学院等级</td>
+        </tr>
+        <tr th:each="schoolGrade:${schoolGrades}">
+            <td th:text="${schoolGrade.id}"></td>
+            <td th:text="${schoolGrade.name}"></td>
+        </tr>
+    </table>
+</body>
+</html>

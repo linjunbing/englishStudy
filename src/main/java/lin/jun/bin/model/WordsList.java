@@ -1,5 +1,7 @@
 package lin.jun.bin.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 单词
  */
@@ -17,6 +19,7 @@ public class WordsList {
     /**
      * 添加时间
      */
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private String addTime;
     /**
      * 学院等级
