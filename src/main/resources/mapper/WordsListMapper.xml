@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="lin.jun.bin.mapper.WordsListMapper">
+
+    <resultMap id="WordsListMap" type="lin.jun.bin.model.WordsList">
+        <id column="ID" property="id"/>
+        <result column="WORD" property="word"/>
+        <result column="WORD_NAME" property="wordName"/>
+        <result column="ADD_TIME" property="addTime"/>
+        <result column="SCHOOL_GRADE_ID" property="schoolGradeId"/>
+        <result column="SORT_ID" property="sortId"/>
+        <result column="SYNONYM_ID" property="synonymId"/>
+        <result column="SIMILAR_WORD_ID" property="similarWordId"/>
+    </resultMap>
+
+    <sql id="Words_List_Sql">
+        ID,WORD,WORD_NAME,ADD_TIME,SCHOOL_GRADE_ID,SORT_ID,SYNONYM_ID,SIMILAR_WORD_ID
+    </sql>
+
+    <select id="selectWordsListAll" resultMap="WordsListMap">
+        SELECT
+        <include refid="Words_List_Sql"/>
+        FROM words_list
+    </select>
+
+    <select id="selectWordsListById" resultMap="WordsListMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Words_List_Sql"/>
+        FROM words_list WHERE ID = #{id}
+    </select>
+
+    <select id="insertWordsList" parameterType="lin.jun.bin.model.WordsList">
+        INSERT into words_list(
+          ID,WORD,WORD_NAME,ADD_TIME,SCHOOL_GRADE_ID,SORT_ID,SYNONYM_ID,SIMILAR_WORD_ID
+        )
+        VALUES(
+          #{id},#{word},#{wordName},#{addTime},#{schoolGradeId},#{sortId},#{synonymId},#{similarWordId}
+        )
+    </select>
+
+    <select id="updateWordsList" parameterType="lin.jun.bin.model.WordsList">
+        UPDATE words_list
+        <set>
+            <if test="word != null">
+                WORD = #{word},
+            </if>
+            <if test="wordName != null">
+                WORD_NAME = #{wordName},
+            </if>
+            <if test="addTime != null">
+                ADD_TIME = #{addTime},
+            </if>
+            <if test="schoolGradeId != null">
+                SCHOOL_GRADE_ID = #{schoolGradeId},
+            </if>
+            <if test="sortId != null">
+                SORT_ID = #{sortId},
+            </if>
+            <if test="synonymId != null">
+                SYNONYM_ID = #{synonymId},
+            </if>
+            <if test="similarWordId != null">
+                SIMILAR_WORD_ID = #{similarWordId},
+            </if>
+        </set>
+        WHERE ID = #{id}
+    </select>
+
+    <select id="deleteWordsList" parameterType="java.lang.String">
+        DELETE FROM words_list
+        WHERE ID = #{id}
+    </select>
+
+    <select id="deleteWordsListList" parameterType="java.util.List">
+        DELETE FROM words_list
+        WHERE ID IN
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </select>
+</mapper>
