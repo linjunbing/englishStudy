@@ -46,9 +46,18 @@ public class LinController {
 
     @PostMapping("/upload")
     public String upload(MultipartFile uploadFile, HttpServletRequest req) {
-
+        
         String format = sdf.format(new Date());
-        File file = new File(realPath + format);
+        boolean pathBoolean = false;
+        String path = "";
+        if (pathBoolean) {
+            path = this.realPath;
+        } else {
+            //E:\student\Projects\English-Project\englishStudy\target\classes
+            path = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "static\\";
+        }
+
+        File file = new File(path + format);
         if (!file.isDirectory()) {
             file.mkdirs();
         }
@@ -58,7 +67,8 @@ public class LinController {
         try {
             uploadFile.transferTo(new File(file, newName));
             String filePath = file + "\\" + newName;
-            return filePath;
+            String filePath2 = req.getScheme() + "://" + req.getServerName()+":"+req.getServerPort() + "/static/" + format+"/" + newName;
+            return "本地路径：" + filePath + "  " + "网络路径："+filePath2;
         } catch (IOException e) {
             e.printStackTrace();
         }

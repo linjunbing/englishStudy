@@ -24,6 +24,13 @@ spring:
       content-type: text/html
     #模板文件后缀
     suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  servlet:
+    multipart:
+      location: E:\student\Projects\English-Project\虚拟目录\
 
 #spring集成Mybatis环境
 mybatis:
@@ -31,5 +38,6 @@ mybatis:
   type-aliases-package: lin.jun.bin.model
   #加载Mybatis映射文件
   mapper-locations: classpath:mapper/*Mapper.xml
+
 
 realPath: E:\student\Projects\English-Project\虚拟目录\
